@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+/* ----------------------------------------------------------
+  Layout
+---------------------------------------------------------- */
+
+.wpupopin__overlay {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.wpupopin {
+    width: 500px;
+    background-color: #fff;
+}
+
+/* ----------------------------------------------------------
+  Content
+---------------------------------------------------------- */
+
+.wpupopin__close {
+    z-index: 1;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 1.5em;
+    height: 1.5em;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #fff;
+    background-color: #000;
+}
+
+.wpupopin__content {
+    max-height: 100%;
+    overflow: auto;
+}
+
+.wpupopin__button {
+    display: inline-block;
+    padding: 0 1em;
+    border: 1px solid;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 2;
+    letter-spacing: 0.05em;
+    vertical-align: top;
+}
