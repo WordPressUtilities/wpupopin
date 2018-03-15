@@ -1,0 +1,127 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPU Popin\n"
+"POT-Creation-Date: 2018-03-15 10:55+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Darklg <darklg.blog@gmail.com>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c\n"
+"X-Poedit-SearchPath-0: ../.\n"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:81
+msgid "Import Settings"
+msgstr "Paramètres d'importation"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:98
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:389
+msgid "Settings"
+msgstr "Réglages"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:125
+msgid "No"
+msgstr "Non"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:125
+msgid "Yes"
+msgstr "Oui"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:223
+msgid "Settings saved."
+msgstr "Réglages enregistrés."
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:261
+msgid "Upload New Media"
+msgstr "Ajouter un nouveau média"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:404
+msgid "Save"
+msgstr "Enregistrer"
+
+#: .././wpupopin.php:45
+msgid "Popin settings"
+msgstr "Paramètres du popin"
+
+#: .././wpupopin.php:48 .././wpupopin.php:90
+msgid "Popin content"
+msgstr "Contenu du popin"
+
+#: .././wpupopin.php:55
+msgid "Popin"
+msgstr "Popin"
+
+#: .././wpupopin.php:56
+msgid "Display a popin on first visit"
+msgstr "Afficher un popin à la première visite"
+
+#: .././wpupopin.php:61
+msgid "Close on overlay"
+msgstr "Fermeture sur filtre"
+
+#: .././wpupopin.php:62
+msgid "Close popin when clicking on overlay"
+msgstr "Fermer le popin au clic sur le filtre"
+
+#: .././wpupopin.php:67
+msgid "Close on echap"
+msgstr "Fermeture avec echap"
+
+#: .././wpupopin.php:68
+msgid "Close popin when pressing echap key"
+msgstr "Fermer le popin au clic sur la touche echap"
+
+#: .././wpupopin.php:73
+msgid "Hide theme"
+msgstr "Masquer le thème"
+
+#: .././wpupopin.php:74
+msgid "Hide default theme"
+msgstr "Masquer le thème par défaut"
+
+#: .././wpupopin.php:79
+msgid "ID Cookie"
+msgstr "ID du Cookie"
+
+#: .././wpupopin.php:81
+msgid ""
+"Changing cookie ID allow users to see the new content of a popin.<br />Use "
+"only lowercase letters and numbers."
+msgstr ""
+"La modification de l'ID du cookie permet aux utilisateurs de voir le nouveau "
+"contenu d'un popin.<br />Utiliser uniquement des lettres minuscules et des "
+"nombres."
+
+#: .././wpupopin.php:85
+msgid "Cookie duration"
+msgstr "Durée du cookie"
+
+#: .././wpupopin.php:86
+msgid "Number of days until user sees this popin again."
+msgstr "Nombre de jours jusqu’à ce que l'utilisateur voie à nouveau ce cookie."
+
+#: .././wpupopin.php:95
+msgid "Button text"
+msgstr "Texte du bouton"
+
+#: .././wpupopin.php:107
+msgid "Hide"
+msgstr "Masquer"
+
+#~ msgid ""
+#~ "Changing cookie ID allow users to see the new content of a popin. Use "
+#~ "only lowercase letters and numbers."
+#~ msgstr ""
+#~ "La modification de l'ID du cookie permet aux utilisateurs de voir le "
+#~ "nouveau contenu d'un popin. Utiliser uniquement des lettres minuscules et "
+#~ "des nombres."
+
+#~ msgid "Changing cookie ID allow users to see the new content of a popin"
+#~ msgstr ""
+#~ "La modification de l'ID du cookie permet aux utilisateurs de voir le "
+#~ "nouveau contenu d'un popin"

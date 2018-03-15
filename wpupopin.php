@@ -4,7 +4,7 @@
 Plugin Name: WPU Popin
 Description: Add a popin on your user's first visit
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.1.0
+Version: 0.2.0
 Author: Darklg
 Author URI: http://darklg.me/
 License: MIT License
@@ -12,14 +12,22 @@ License URI: http://opensource.org/licenses/MIT
 */
 
 class WPUPopin {
-    private $plugin_version = '0.1.0';
+    private $plugin_version = '0.2.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
     public function __construct() {
+        add_action('plugins_loaded', array(&$this, 'load_translation'));
         add_action('plugins_loaded', array(&$this, 'load_settings'));
         add_action('wp_enqueue_scripts', array(&$this, 'load_assets_front'));
         add_action('wp_footer', array(&$this, 'load_popin_front'));
+    }
+
+    /**
+     * Translation
+     */
+    public function load_translation() {
+        load_plugin_textdomain('wpupopin', false, dirname(plugin_basename(__FILE__)) . '/lang/');
     }
 
     /**
@@ -54,11 +62,28 @@ class WPUPopin {
                 'label_check' => __('Close popin when clicking on overlay', 'wpupopin'),
                 'type' => 'checkbox'
             ),
+            'close_echap' => array(
+                'section' => 'popin',
+                'label' => __('Close on echap', 'wpupopin'),
+                'label_check' => __('Close popin when pressing echap key', 'wpupopin'),
+                'type' => 'checkbox'
+            ),
             'hide_default_theme' => array(
                 'section' => 'content',
                 'label' => __('Hide theme', 'wpupopin'),
                 'label_check' => __('Hide default theme', 'wpupopin'),
                 'type' => 'checkbox'
+            ),
+            'cookie_id' => array(
+                'section' => 'content',
+                'label' => __('ID Cookie', 'wpupopin'),
+                'regex' => '/^([a-z0-9]+)$/',
+                'help' => __('Changing cookie ID allow users to see the new content of a popin.<br />Use only lowercase letters and numbers.', 'wpupopin')
+            ),
+            'cookie_duration' => array(
+                'section' => 'content',
+                'label' => __('Cookie duration', 'wpupopin'),
+                'help' => __('Number of days until user sees this popin again.', 'wpupopin')
             ),
             'content_text' => array(
                 'section' => 'content',
@@ -76,6 +101,14 @@ class WPUPopin {
 
         $this->settings_plugin = new \wpupopin\WPUBaseSettings($this->settings_details, $this->settings);
         $this->settings_values = apply_filters('wpupopin__settings', $this->settings_plugin->get_setting_values());
+
+        /* Default */
+        if (!$this->settings_values['button_text'] || empty($this->settings_values['button_text'])) {
+            $this->settings_values['button_text'] = __('Hide', 'wpupopin');
+        }
+        if (!$this->settings_values['cookie_duration'] || !ctype_digit($this->settings_values['cookie_duration'])) {
+            $this->settings_values['cookie_duration'] = 30;
+        }
     }
 
     /**
@@ -99,8 +132,10 @@ class WPUPopin {
 
         /* Add settings */
         wp_localize_script('wpupopin-front', 'wpupopin_settings', array(
+            'cookie_duration' => $this->settings_values['cookie_duration'],
             'close_overlay' => $this->settings_values['close_overlay'],
-            'cookie_id' => $this->settings_details['plugin_id']
+            'close_echap' => $this->settings_values['close_echap'],
+            'cookie_id' => $this->settings_details['plugin_id'].$this->settings_values['cookie_id']
         ));
 
     }
@@ -112,8 +147,10 @@ class WPUPopin {
         if (!$this->settings_values['display_popin']) {
             return;
         }
-        if (!$this->settings_values['button_text']) {
-            $this->settings_values['button_text'] = 'ok';
+        $override_content = apply_filters('wpupopin__override_content', '');
+        if (!empty($override_content)) {
+            echo $override_content;
+            return;
         }
         include dirname(__FILE__) . '/tpl/popin.php';
     }

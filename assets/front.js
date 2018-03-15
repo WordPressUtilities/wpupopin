@@ -1,4 +1,4 @@
-/* globals jQuery,wpupopin_settings,document */
+/* globals jQuery,wpupopin_settings,document,window */
 
 'use strict';
 
@@ -19,7 +19,7 @@ function set_wpupopin($popin) {
         $popin.attr('data-visible', '1');
 
         /* Create a cookie */
-        setCookie(wpupopin_settings.cookie_id, 1);
+        setCookie(wpupopin_settings.cookie_id, 1, wpupopin_settings.cookie_duration);
     }
 
     function setCookie(cookie_name, cookie_value, cookie_days) {
@@ -46,8 +46,15 @@ function set_wpupopin($popin) {
         }
     });
 
+    /* Close on echap */
+    window.addEventListener("keydown", function(e) {
+        if (e.keyCode == 27) {
+            hide_popin();
+        }
+    }, true);
+
     /* Close on close link or button */
-    $popin.on('click', '.wpupopin__close, .wpupopin__button', function(e) {
+    $popin.on('click', '.wpupopin__close, .wpupopin__button, .close', function(e) {
         e.preventDefault();
         hide_popin();
     });
