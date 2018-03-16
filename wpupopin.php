@@ -4,7 +4,7 @@
 Plugin Name: WPU Popin
 Description: Add a popin on your user's first visit
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.2.2
+Version: 0.3.0
 Author: Darklg
 Author URI: http://darklg.me/
 License: MIT License
@@ -12,7 +12,7 @@ License URI: http://opensource.org/licenses/MIT
 */
 
 class WPUPopin {
-    private $plugin_version = '0.2.2';
+    private $plugin_version = '0.3.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -46,6 +46,9 @@ class WPUPopin {
                 ),
                 'content' => array(
                     'name' => __('Popin content', 'wpupopin')
+                ),
+                'button' => array(
+                    'name' => __('Buttons', 'wpupopin')
                 )
             )
         );
@@ -54,6 +57,12 @@ class WPUPopin {
                 'section' => 'popin',
                 'label' => __('Popin', 'wpupopin'),
                 'label_check' => __('Display a popin on first visit', 'wpupopin'),
+                'type' => 'checkbox'
+            ),
+            'disable_loggedin' => array(
+                'section' => 'popin',
+                'label' => __('Disable if loggedin', 'wpupopin'),
+                'label_check' => __('Loggedin users will not see the popin.', 'wpupopin'),
                 'type' => 'checkbox'
             ),
             'close_overlay' => array(
@@ -68,22 +77,22 @@ class WPUPopin {
                 'label_check' => __('Close popin when pressing echap key', 'wpupopin'),
                 'type' => 'checkbox'
             ),
-            'hide_default_theme' => array(
-                'section' => 'content',
-                'label' => __('Hide theme', 'wpupopin'),
-                'label_check' => __('Hide default theme', 'wpupopin'),
-                'type' => 'checkbox'
-            ),
             'cookie_id' => array(
-                'section' => 'content',
+                'section' => 'popin',
                 'label' => __('ID Cookie', 'wpupopin'),
                 'regex' => '/^([a-z0-9]+)$/',
                 'help' => __('Changing cookie ID allow users to see the new content of a popin.<br />Use only lowercase letters and numbers.', 'wpupopin')
             ),
             'cookie_duration' => array(
-                'section' => 'content',
+                'section' => 'popin',
                 'label' => __('Cookie duration', 'wpupopin'),
                 'help' => __('Number of days until user sees this popin again.', 'wpupopin')
+            ),
+            'hide_default_theme' => array(
+                'section' => 'content',
+                'label' => __('Hide theme', 'wpupopin'),
+                'label_check' => __('Hide default theme', 'wpupopin'),
+                'type' => 'checkbox'
             ),
             'content_text' => array(
                 'section' => 'content',
@@ -94,6 +103,18 @@ class WPUPopin {
                 'section' => 'content',
                 'label' => __('Button text', 'wpupopin'),
                 'type' => 'text'
+            ),
+            'button_hidden' => array(
+                'section' => 'button',
+                'label' => __('Hide Main button', 'wpupopin'),
+                'label_check' => __('Hide Main button', 'wpupopin'),
+                'type' => 'checkbox'
+            ),
+            'close_button_hidden' => array(
+                'section' => 'button',
+                'label' => __('Hide X button', 'wpupopin'),
+                'label_check' => __('Hide X button', 'wpupopin'),
+                'type' => 'checkbox'
             )
         );
 
@@ -115,7 +136,7 @@ class WPUPopin {
      * Load frontend assets
      */
     public function load_assets_front() {
-        if (!$this->settings_values['display_popin']) {
+        if (!$this->should_display_popin()) {
             return;
         }
 
@@ -135,7 +156,7 @@ class WPUPopin {
             'cookie_duration' => $this->settings_values['cookie_duration'],
             'close_overlay' => $this->settings_values['close_overlay'],
             'close_echap' => $this->settings_values['close_echap'],
-            'cookie_id' => $this->settings_details['plugin_id'].$this->settings_values['cookie_id']
+            'cookie_id' => $this->settings_details['plugin_id'] . $this->settings_values['cookie_id']
         ));
 
     }
@@ -144,7 +165,7 @@ class WPUPopin {
      * Display popin
      */
     public function load_popin_front() {
-        if (!$this->settings_values['display_popin']) {
+        if (!$this->should_display_popin()) {
             return;
         }
         $override_content = apply_filters('wpupopin__override_content', '', $this->settings_values);
@@ -153,6 +174,17 @@ class WPUPopin {
             return;
         }
         include dirname(__FILE__) . '/tpl/popin.php';
+    }
+
+    public function should_display_popin() {
+        /* Plugin is disabled */
+        if (!$this->settings_values['display_popin']) {
+            return false;
+        }
+        if ($this->settings_values['disable_loggedin'] && is_user_logged_in()) {
+            return false;
+        }
+        return true;
     }
 
 }

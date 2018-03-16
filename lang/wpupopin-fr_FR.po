@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPU Popin\n"
-"POT-Creation-Date: 2018-03-15 10:55+0100\n"
+"POT-Creation-Date: 2018-03-16 11:27+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Darklg <darklg.blog@gmail.com>\n"
 "Language-Team: \n"
@@ -48,47 +48,51 @@ msgstr "Enregistrer"
 msgid "Popin settings"
 msgstr "Paramètres du popin"
 
-#: .././wpupopin.php:48 .././wpupopin.php:90
+#: .././wpupopin.php:48 .././wpupopin.php:99
 msgid "Popin content"
 msgstr "Contenu du popin"
 
-#: .././wpupopin.php:55
+#: .././wpupopin.php:51
+msgid "Buttons"
+msgstr "Boutons"
+
+#: .././wpupopin.php:58
 msgid "Popin"
 msgstr "Popin"
 
-#: .././wpupopin.php:56
+#: .././wpupopin.php:59
 msgid "Display a popin on first visit"
 msgstr "Afficher un popin à la première visite"
 
-#: .././wpupopin.php:61
+#: .././wpupopin.php:64
+msgid "Disable if loggedin"
+msgstr "Désactiver si connecté"
+
+#: .././wpupopin.php:65
+msgid "Loggedin users will not see the popin."
+msgstr "Les utilisateurs connectés ne verront pas ce popin."
+
+#: .././wpupopin.php:70
 msgid "Close on overlay"
 msgstr "Fermeture sur filtre"
 
-#: .././wpupopin.php:62
+#: .././wpupopin.php:71
 msgid "Close popin when clicking on overlay"
 msgstr "Fermer le popin au clic sur le filtre"
 
-#: .././wpupopin.php:67
+#: .././wpupopin.php:76
 msgid "Close on echap"
 msgstr "Fermeture avec echap"
 
-#: .././wpupopin.php:68
+#: .././wpupopin.php:77
 msgid "Close popin when pressing echap key"
 msgstr "Fermer le popin au clic sur la touche echap"
 
-#: .././wpupopin.php:73
-msgid "Hide theme"
-msgstr "Masquer le thème"
-
-#: .././wpupopin.php:74
-msgid "Hide default theme"
-msgstr "Masquer le thème par défaut"
-
-#: .././wpupopin.php:79
+#: .././wpupopin.php:82
 msgid "ID Cookie"
 msgstr "ID du Cookie"
 
-#: .././wpupopin.php:81
+#: .././wpupopin.php:84
 msgid ""
 "Changing cookie ID allow users to see the new content of a popin.<br />Use "
 "only lowercase letters and numbers."
@@ -97,31 +101,34 @@ msgstr ""
 "contenu d'un popin.<br />Utiliser uniquement des lettres minuscules et des "
 "nombres."
 
-#: .././wpupopin.php:85
+#: .././wpupopin.php:88
 msgid "Cookie duration"
 msgstr "Durée du cookie"
 
-#: .././wpupopin.php:86
+#: .././wpupopin.php:89
 msgid "Number of days until user sees this popin again."
 msgstr "Nombre de jours jusqu’à ce que l'utilisateur voie à nouveau ce cookie."
 
-#: .././wpupopin.php:95
+#: .././wpupopin.php:93
+msgid "Hide theme"
+msgstr "Masquer le thème"
+
+#: .././wpupopin.php:94
+msgid "Hide default theme"
+msgstr "Masquer le thème par défaut"
+
+#: .././wpupopin.php:104
 msgid "Button text"
 msgstr "Texte du bouton"
 
-#: .././wpupopin.php:107
+#: .././wpupopin.php:109 .././wpupopin.php:110
+msgid "Hide Main button"
+msgstr "Cacher le bouton principal"
+
+#: .././wpupopin.php:115 .././wpupopin.php:116
+msgid "Hide X button"
+msgstr "Cacher le bouton X"
+
+#: .././wpupopin.php:128
 msgid "Hide"
 msgstr "Masquer"
-
-#~ msgid ""
-#~ "Changing cookie ID allow users to see the new content of a popin. Use "
-#~ "only lowercase letters and numbers."
-#~ msgstr ""
-#~ "La modification de l'ID du cookie permet aux utilisateurs de voir le "
-#~ "nouveau contenu d'un popin. Utiliser uniquement des lettres minuscules et "
-#~ "des nombres."
-
-#~ msgid "Changing cookie ID allow users to see the new content of a popin"
-#~ msgstr ""
-#~ "La modification de l'ID du cookie permet aux utilisateurs de voir le "
-#~ "nouveau contenu d'un popin"

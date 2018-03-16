@@ -12,6 +12,7 @@ function set_wpupopin($popin) {
 
     function hide_popin() {
         $popin.attr('data-visible', '0');
+        $popin.trigger('wpupopin_hide');
     }
 
     function display_popin() {
@@ -23,9 +24,7 @@ function set_wpupopin($popin) {
     }
 
     function setCookie(cookie_name, cookie_value, cookie_days) {
-        if (!cookie_days) {
-            cookie_days = 30;
-        }
+        cookie_days = cookie_days || 30;
         var cookie_date = new Date();
         cookie_date.setTime(cookie_date.getTime() + (cookie_days * 24 * 60 * 60 * 1000));
         var expires = "expires=" + cookie_date.toUTCString();
@@ -37,6 +36,9 @@ function set_wpupopin($popin) {
     }
 
     /* EVENTS */
+
+    /* Custom event */
+    $popin.on('hide_wpupopin', hide_popin);
 
     /* Close on overlay */
     $popin.on('click', '.wpupopin__overlay', function(e) {
