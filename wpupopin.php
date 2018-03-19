@@ -4,7 +4,7 @@
 Plugin Name: WPU Popin
 Description: Add a popin on your user's first visit
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.3.0
+Version: 0.3.1
 Author: Darklg
 Author URI: http://darklg.me/
 License: MIT License
@@ -12,7 +12,7 @@ License URI: http://opensource.org/licenses/MIT
 */
 
 class WPUPopin {
-    private $plugin_version = '0.3.0';
+    private $plugin_version = '0.3.1';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -97,12 +97,14 @@ class WPUPopin {
             'content_text' => array(
                 'section' => 'content',
                 'label' => __('Popin content', 'wpupopin'),
-                'type' => 'editor'
+                'type' => 'editor',
+                'lang' => 1
             ),
             'button_text' => array(
                 'section' => 'content',
                 'label' => __('Button text', 'wpupopin'),
-                'type' => 'text'
+                'type' => 'text',
+                'lang' => 1
             ),
             'button_hidden' => array(
                 'section' => 'button',

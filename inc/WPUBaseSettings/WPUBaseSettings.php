@@ -4,7 +4,7 @@ namespace wpupopin;
 /*
 Class Name: WPU Base Settings
 Description: A class to handle native settings in WordPress admin
-Version: 0.9.3
+Version: 0.11.1
 Author: Darklg
 Author URI: http://darklg.me/
 License: MIT License
@@ -126,7 +126,27 @@ class WPUBaseSettings {
             $settings[$id]['user_cap'] = $this->settings_details['sections'][$settings[$id]['section']]['user_cap'];
         }
 
-        $this->settings = $settings;
+        $languages = $this->get_languages();
+
+        /* Set multilingual fields */
+        $new_settings = array();
+        foreach ($settings as $id => $input) {
+            if (!isset($input['lang'])) {
+                $new_settings[$id] = $input;
+                continue;
+            }
+            foreach ($languages as $lang) {
+                $input_lang = $input;
+                unset($input_lang['lang']);
+                $input_lang['translated_from'] = $id;
+                $input_lang['lang_id'] = $lang;
+                $input_lang['label'] = '[' . $lang . ']&nbsp;' . $input_lang['label'];
+                $new_settings[$lang . '__' . $id] = $input_lang;
+            }
+
+        }
+
+        $this->settings = $new_settings;
     }
 
     public function add_settings() {
@@ -410,20 +430,56 @@ EOT;
 
     /* Get settings */
 
-    public function get_setting_values() {
+    public function get_setting_values($lang = false) {
         if (!isset($this->settings) || !is_array($this->settings)) {
             return array();
+        }
+        if (!$lang) {
+            $lang = $this->get_current_language();
         }
         $settings = get_option($this->settings_details['option_id']);
         if (!is_array($settings)) {
             $settings = array();
         }
         foreach ($this->settings as $key => $setting) {
-            if (!isset($settings[$key])) {
+            /* Default fields */
+            if (!isset($settings[$key]) && !isset($setting['translated_from'])) {
                 $settings[$key] = false;
+            }
+            if (isset($setting['translated_from'], $setting['lang_id'], $settings[$key]) && $lang == $setting['lang_id'] && $settings[$key] !== false) {
+                $settings[$setting['translated_from']] = $settings[$key];
             }
         }
         return $settings;
+    }
+
+    public function get_languages() {
+        // Obtaining from Qtranslate
+        if (function_exists('qtrans_getSortedLanguages')) {
+            return qtrans_getSortedLanguages();
+        }
+
+        // Obtaining from Qtranslate X
+        if (function_exists('qtranxf_getSortedLanguages')) {
+            return qtranxf_getSortedLanguages();
+        }
+
+        return array();
+
+    }
+
+    public function get_current_language() {
+        // Obtaining from Qtranslate
+        if (function_exists('qtrans_getLanguage')) {
+            return qtrans_getLanguage();
+        }
+
+        // Obtaining from Qtranslate X
+        if (function_exists('qtranxf_getLanguage')) {
+            return qtranxf_getLanguage();
+        }
+
+        return '';
     }
 
 }
