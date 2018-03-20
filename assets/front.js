@@ -32,7 +32,7 @@ function set_wpupopin($popin) {
     }
 
     function hasCookie(cookie_name) {
-        return document.cookie.indexOf(cookie_name) > 1;
+        return document.cookie.indexOf(cookie_name) > -1;
     }
 
     /* EVENTS */
