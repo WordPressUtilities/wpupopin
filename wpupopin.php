@@ -4,7 +4,7 @@
 Plugin Name: WPU Popin
 Description: Add a popin on your user's first visit
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.3.4
+Version: 0.4.0
 Author: Darklg
 Author URI: http://darklg.me/
 License: MIT License
@@ -12,7 +12,7 @@ License URI: http://opensource.org/licenses/MIT
 */
 
 class WPUPopin {
-    private $plugin_version = '0.3.4';
+    private $plugin_version = '0.4.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -67,12 +67,14 @@ class WPUPopin {
             ),
             'close_overlay' => array(
                 'section' => 'popin',
+                'default' => '1',
                 'label' => __('Close on overlay', 'wpupopin'),
                 'label_check' => __('Close popin when clicking on overlay', 'wpupopin'),
                 'type' => 'checkbox'
             ),
             'close_echap' => array(
                 'section' => 'popin',
+                'default' => '1',
                 'label' => __('Close on echap', 'wpupopin'),
                 'label_check' => __('Close popin when pressing echap key', 'wpupopin'),
                 'type' => 'checkbox'
@@ -85,6 +87,7 @@ class WPUPopin {
             ),
             'cookie_duration' => array(
                 'section' => 'popin',
+                'default' => '30',
                 'label' => __('Cookie duration', 'wpupopin'),
                 'help' => __('Number of days until user sees this popin again.', 'wpupopin')
             ),
@@ -97,12 +100,14 @@ class WPUPopin {
             'content_text' => array(
                 'section' => 'content',
                 'label' => __('Popin content', 'wpupopin'),
+                'default' => __('Popin content', 'wpupopin'),
                 'type' => 'editor',
                 'lang' => 1
             ),
             'button_text' => array(
                 'section' => 'content',
                 'label' => __('Button text', 'wpupopin'),
+                'default' => __('Button text', 'wpupopin'),
                 'type' => 'text',
                 'lang' => 1
             ),
