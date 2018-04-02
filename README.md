@@ -10,4 +10,4 @@ Add a popin on your user's first visit
 * [x] Hook for content.
 * [x] Popin option to force action to close popin.
 * [x] Disable for logged-in users.
-* [ ] Translate text fields.
+* [x] Translate text fields.

@@ -4,7 +4,7 @@ namespace wpupopin;
 /*
 Class Name: WPU Base Settings
 Description: A class to handle native settings in WordPress admin
-Version: 0.12.0
+Version: 0.12.1
 Author: Darklg
 Author URI: http://darklg.me/
 License: MIT License
@@ -104,7 +104,7 @@ class WPUBaseSettings {
         }
         foreach ($settings_details['sections'] as $id => $section) {
             if (!isset($section['user_cap'])) {
-                $settings_details['sections'][$id]['user_cap'] = 'manage_options';
+                $settings_details['sections'][$id]['user_cap'] = $settings_details['user_cap'];
             }
         }
         $this->settings_details = $settings_details;
