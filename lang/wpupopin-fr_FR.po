@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPU Popin\n"
-"POT-Creation-Date: 2018-04-02 21:41+0200\n"
+"POT-Creation-Date: 2018-06-06 21:00+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Darklg <darklg.blog@gmail.com>\n"
 "Language-Team: \n"
@@ -43,6 +43,10 @@ msgstr "Ajouter un nouveau média"
 #: .././inc/WPUBaseSettings/WPUBaseSettings.php:427
 msgid "Save"
 msgstr "Enregistrer"
+
+#: .././tpl/popin.php:2 .././tpl/popin.php:6
+msgid "Close popin"
+msgstr "Fermer le popin"
 
 #: .././wpupopin.php:46
 msgid "Popin settings"
