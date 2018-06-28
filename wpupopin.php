@@ -4,7 +4,7 @@
 Plugin Name: WPU Popin
 Description: Add a popin on your user's first visit
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.4.2
+Version: 0.5.0
 Author: Darklg
 Author URI: http://darklg.me/
 License: MIT License
@@ -12,7 +12,7 @@ License URI: http://opensource.org/licenses/MIT
 */
 
 class WPUPopin {
-    private $plugin_version = '0.4.2';
+    private $plugin_version = '0.5.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -92,6 +92,12 @@ class WPUPopin {
                 'label' => __('Cookie duration', 'wpupopin'),
                 'help' => __('Number of days until user sees this popin again.', 'wpupopin')
             ),
+            'display_after_n_clicks' => array(
+                'section' => 'popin',
+                'default' => '0',
+                'label' => __('Display after n clicks', 'wpupopin'),
+                'help' => __('Wait until user has clicked n times anywhere on the page to display the popin.', 'wpupopin')
+            ),
             'hide_default_theme' => array(
                 'section' => 'content',
                 'label' => __('Hide theme', 'wpupopin'),
@@ -138,6 +144,9 @@ class WPUPopin {
         if (!isset($this->settings_values['cookie_duration']) || !$this->settings_values['cookie_duration'] || !ctype_digit($this->settings_values['cookie_duration'])) {
             $this->settings_values['cookie_duration'] = 30;
         }
+        if (!isset($this->settings_values['display_after_n_clicks']) || !$this->settings_values['display_after_n_clicks'] || !ctype_digit($this->settings_values['display_after_n_clicks'])) {
+            $this->settings_values['display_after_n_clicks'] = 0;
+        }
     }
 
     /**
@@ -161,6 +170,7 @@ class WPUPopin {
 
         /* Add settings */
         wp_localize_script('wpupopin-front', 'wpupopin_settings', array(
+            'display_after_n_clicks' => $this->settings_values['display_after_n_clicks'],
             'cookie_duration' => $this->settings_values['cookie_duration'],
             'close_overlay' => $this->settings_values['close_overlay'],
             'close_echap' => $this->settings_values['close_echap'],

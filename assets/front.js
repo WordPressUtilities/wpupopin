@@ -16,6 +16,11 @@ function set_wpupopin($popin) {
     }
 
     function display_popin() {
+        /* Disable if already displayed */
+        if (hasCookie(wpupopin_settings.cookie_id)) {
+            return;
+        }
+
         /* Display popin */
         $popin.attr('data-visible', '1');
 
@@ -31,8 +36,20 @@ function set_wpupopin($popin) {
         document.cookie = cookie_name + "=" + cookie_value + ";" + expires + ";path=/";
     }
 
+    /* Thanks to https://www.quirksmode.org/js/cookies.html */
+    function readCookie(cookie_name) {
+        var nameEQ = cookie_name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
     function hasCookie(cookie_name) {
-        return document.cookie.indexOf(cookie_name) > -1;
+        return readCookie(cookie_name) !== null;
     }
 
     /* EVENTS */
@@ -55,6 +72,22 @@ function set_wpupopin($popin) {
         }
     }, true);
 
+    window.addEventListener('click', function(e) {
+        var cookieID = wpupopin_settings.cookie_id + '_clicks',
+            nbClicksWait = parseInt(wpupopin_settings.display_after_n_clicks, 10),
+            nbClicks = readCookie(cookieID);
+        if (!nbClicks) {
+            nbClicks = 0;
+        }
+        nbClicks = parseInt(nbClicks, 10) + 1;
+        setCookie(cookieID, nbClicks, wpupopin_settings.cookie_duration);
+
+        if (nbClicks == nbClicksWait) {
+            console.log('a');
+            display_popin();
+        }
+    }, true);
+
     /* Close on close link or button */
     $popin.on('click', '.wpupopin__close, .wpupopin__button, .close', function(e) {
         e.preventDefault();
@@ -64,7 +97,7 @@ function set_wpupopin($popin) {
     /* ACTION */
 
     /* If cookie does not exist */
-    if (!hasCookie(wpupopin_settings.cookie_id)) {
+    if (wpupopin_settings.display_after_n_clicks == 0) {
         display_popin();
     }
 

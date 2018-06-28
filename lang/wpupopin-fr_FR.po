@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPU Popin\n"
-"POT-Creation-Date: 2018-06-06 21:00+0200\n"
+"POT-Creation-Date: 2018-06-28 22:54+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Darklg <darklg.blog@gmail.com>\n"
 "Language-Team: \n"
@@ -52,7 +52,7 @@ msgstr "Fermer le popin"
 msgid "Popin settings"
 msgstr "Paramètres du popin"
 
-#: .././wpupopin.php:49 .././wpupopin.php:103 .././wpupopin.php:104
+#: .././wpupopin.php:49 .././wpupopin.php:109 .././wpupopin.php:110
 msgid "Popin content"
 msgstr "Contenu du popin"
 
@@ -113,26 +113,38 @@ msgstr "Durée du cookie"
 msgid "Number of days until user sees this popin again."
 msgstr "Nombre de jours jusqu’à ce que l'utilisateur voie à nouveau ce cookie."
 
-#: .././wpupopin.php:97
+#: .././wpupopin.php:98
+msgid "Display after n clicks"
+msgstr "Afficher après n clics"
+
+#: .././wpupopin.php:99
+msgid ""
+"Wait until user has clicked n times anywhere on the page to display the "
+"popin."
+msgstr ""
+"Attendre que l'utilisateur clique n fois n'importe où sur la page pour "
+"afficher le popin."
+
+#: .././wpupopin.php:103
 msgid "Hide theme"
 msgstr "Masquer le thème"
 
-#: .././wpupopin.php:98
+#: .././wpupopin.php:104
 msgid "Hide default theme"
 msgstr "Masquer le thème par défaut"
 
-#: .././wpupopin.php:110 .././wpupopin.php:111
+#: .././wpupopin.php:116 .././wpupopin.php:117
 msgid "Button text"
 msgstr "Texte du bouton"
 
-#: .././wpupopin.php:117 .././wpupopin.php:118
+#: .././wpupopin.php:123 .././wpupopin.php:124
 msgid "Hide Main button"
 msgstr "Cacher le bouton principal"
 
-#: .././wpupopin.php:123 .././wpupopin.php:124
+#: .././wpupopin.php:129 .././wpupopin.php:130
 msgid "Hide X button"
 msgstr "Cacher le bouton X"
 
-#: .././wpupopin.php:136
+#: .././wpupopin.php:142
 msgid "Hide"
 msgstr "Masquer"
