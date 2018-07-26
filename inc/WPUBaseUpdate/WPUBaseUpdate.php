@@ -1,5 +1,5 @@
 <?php
-namespace wpubaseupdate_0_1_1;
+namespace wpupopin;
 
 /*
 Class Name: WPU Base Update
