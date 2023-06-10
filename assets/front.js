@@ -1,12 +1,11 @@
 /* globals jQuery,wpupopin_settings,document,window */
 
-'use strict';
-
 jQuery(document).ready(function() {
     set_wpupopin(jQuery('.wpupopin__wrapper'));
 });
 
 function set_wpupopin($popin) {
+    'use strict';
 
     /* HELPERS */
 
@@ -65,6 +64,12 @@ function set_wpupopin($popin) {
         }
     });
 
+    /* Close on close link or button */
+    $popin.on('click', '.wpupopin__close, .wpupopin__button, .close', function(e) {
+        e.preventDefault();
+        hide_popin();
+    });
+
     /* Close on echap */
     window.addEventListener("keydown", function(e) {
         if (e.keyCode == 27) {
@@ -72,33 +77,50 @@ function set_wpupopin($popin) {
         }
     }, true);
 
-    window.addEventListener('click', function(e) {
-        var cookieID = wpupopin_settings.cookie_id + '_clicks',
-            nbClicksWait = parseInt(wpupopin_settings.display_after_n_clicks, 10),
-            nbClicks = readCookie(cookieID);
-        if (!nbClicks) {
-            nbClicks = 0;
-        }
-        nbClicks = parseInt(nbClicks, 10) + 1;
-        setCookie(cookieID, nbClicks, wpupopin_settings.cookie_duration);
+    /* ----------------------------------------------------------
+      Checks
+    ---------------------------------------------------------- */
 
-        if (nbClicks == nbClicksWait) {
-            console.log('a');
-            display_popin();
-        }
+    /* Wait for click */
+    var nbClicksWait = parseInt(wpupopin_settings.display_after_n_clicks, 10);
+    if (!window.localStorage.getItem('wpupopin_nbClicksCount')) {
+        window.localStorage.setItem('wpupopin_nbClicksCount', 0);
+    }
+    window.addEventListener('click', function(e) {
+        var nbClicksCount = window.localStorage.getItem('wpupopin_nbClicksCount');
+        nbClicksCount = parseInt(nbClicksCount, 10) + 1;
+        window.localStorage.setItem('wpupopin_nbClicksCount', nbClicksCount);
+        try_trigger_popin();
     }, true);
 
-    /* Close on close link or button */
-    $popin.on('click', '.wpupopin__close, .wpupopin__button, .close', function(e) {
-        e.preventDefault();
-        hide_popin();
-    });
+    /* Wait time */
+    var nbSecsWait = parseInt(wpupopin_settings.display_after_n_seconds, 10);
+    if (!window.localStorage.getItem('wpupopin_nbSecsCount')) {
+        window.localStorage.setItem('wpupopin_nbSecsCount', 0);
+    }
+    setInterval(function(){
+        var nbSecsCount = window.localStorage.getItem('wpupopin_nbSecsCount');
+        nbSecsCount = parseInt(nbSecsCount, 10) + 1;
+        window.localStorage.setItem('wpupopin_nbSecsCount', nbSecsCount);
+        try_trigger_popin();
+    }, 1000);
 
     /* ACTION */
+    function try_trigger_popin() {
+        /* Check number of clicks */
+        if (parseInt(window.localStorage.getItem('wpupopin_nbClicksCount'), 10) < nbClicksWait) {
+            return;
+        }
 
-    /* If cookie does not exist */
-    if (wpupopin_settings.display_after_n_clicks == 0) {
+        /* Check number of seconds */
+        if (parseInt(window.localStorage.getItem('wpupopin_nbSecsCount'), 10) < nbSecsWait) {
+            return;
+        }
+
         display_popin();
     }
+
+    /* Initial try */
+    try_trigger_popin();
 
 }

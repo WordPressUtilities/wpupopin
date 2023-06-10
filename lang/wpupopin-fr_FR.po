@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPU Popin\n"
-"POT-Creation-Date: 2018-06-28 22:54+0200\n"
+"POT-Creation-Date: 2023-06-10 21:30+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Darklg <darklg.blog@gmail.com>\n"
 "Language-Team: \n"
@@ -9,38 +9,39 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 3.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:84
-msgid "Import Settings"
-msgstr "Paramètres d'importation"
-
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:101
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:412
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:136
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:558
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:565
 msgid "Settings"
 msgstr "Réglages"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:128
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:165
 msgid "No"
 msgstr "Non"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:128
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:165
 msgid "Yes"
 msgstr "Oui"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:246
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:301
 msgid "Settings saved."
 msgstr "Réglages enregistrés."
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:284
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:353
 msgid "Upload New Media"
 msgstr "Ajouter un nouveau média"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:427
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:504
+msgid "Language"
+msgstr ""
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:580
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -48,55 +49,59 @@ msgstr "Enregistrer"
 msgid "Close popin"
 msgstr "Fermer le popin"
 
-#: .././wpupopin.php:46
+#: .././wpupopin.php:43
+msgid "Display a popin on your user’s first visit and more"
+msgstr "Afficher un popin à la première visite et bien plus encore"
+
+#: .././wpupopin.php:60
 msgid "Popin settings"
 msgstr "Paramètres du popin"
 
-#: .././wpupopin.php:49 .././wpupopin.php:109 .././wpupopin.php:110
+#: .././wpupopin.php:63 .././wpupopin.php:129 .././wpupopin.php:130
 msgid "Popin content"
 msgstr "Contenu du popin"
 
-#: .././wpupopin.php:52
+#: .././wpupopin.php:66
 msgid "Buttons"
 msgstr "Boutons"
 
-#: .././wpupopin.php:59
+#: .././wpupopin.php:73
 msgid "Popin"
 msgstr "Popin"
 
-#: .././wpupopin.php:60
+#: .././wpupopin.php:74
 msgid "Display a popin on first visit"
 msgstr "Afficher un popin à la première visite"
 
-#: .././wpupopin.php:65
+#: .././wpupopin.php:79
 msgid "Disable if loggedin"
 msgstr "Désactiver si connecté"
 
-#: .././wpupopin.php:66
+#: .././wpupopin.php:80
 msgid "Loggedin users will not see the popin."
 msgstr "Les utilisateurs connectés ne verront pas ce popin."
 
-#: .././wpupopin.php:72
+#: .././wpupopin.php:86
 msgid "Close on overlay"
 msgstr "Fermeture sur filtre"
 
-#: .././wpupopin.php:73
+#: .././wpupopin.php:87
 msgid "Close popin when clicking on overlay"
 msgstr "Fermer le popin au clic sur le filtre"
 
-#: .././wpupopin.php:79
+#: .././wpupopin.php:93
 msgid "Close on echap"
 msgstr "Fermeture avec echap"
 
-#: .././wpupopin.php:80
+#: .././wpupopin.php:94
 msgid "Close popin when pressing echap key"
 msgstr "Fermer le popin au clic sur la touche echap"
 
-#: .././wpupopin.php:85
+#: .././wpupopin.php:99
 msgid "ID Cookie"
 msgstr "ID du Cookie"
 
-#: .././wpupopin.php:87
+#: .././wpupopin.php:101
 msgid ""
 "Changing cookie ID allow users to see the new content of a popin.<br />Use "
 "only lowercase letters and numbers."
@@ -105,46 +110,59 @@ msgstr ""
 "contenu d'un popin.<br />Utiliser uniquement des lettres minuscules et des "
 "nombres."
 
-#: .././wpupopin.php:92
+#: .././wpupopin.php:106
 msgid "Cookie duration"
 msgstr "Durée du cookie"
 
-#: .././wpupopin.php:93
+#: .././wpupopin.php:107
 msgid "Number of days until user sees this popin again."
 msgstr "Nombre de jours jusqu’à ce que l'utilisateur voie à nouveau ce cookie."
 
-#: .././wpupopin.php:98
+#: .././wpupopin.php:112
 msgid "Display after n clicks"
 msgstr "Afficher après n clics"
 
-#: .././wpupopin.php:99
+#: .././wpupopin.php:113
 msgid ""
-"Wait until user has clicked n times anywhere on the page to display the "
+"Wait until the user has clicked n times anywhere on the page to display the "
 "popin."
 msgstr ""
 "Attendre que l'utilisateur clique n fois n'importe où sur la page pour "
 "afficher le popin."
 
-#: .././wpupopin.php:103
+#: .././wpupopin.php:118
+msgid "Display after n seconds"
+msgstr "Afficher après n secondes"
+
+#: .././wpupopin.php:119
+msgid "Wait until the user has been at least n seconds on your website."
+msgstr ""
+"Attendre que l’utilisateur ait passé au moins n secondes de visite pour "
+"afficher le popin."
+
+#: .././wpupopin.php:123
 msgid "Hide theme"
 msgstr "Masquer le thème"
 
-#: .././wpupopin.php:104
+#: .././wpupopin.php:124
 msgid "Hide default theme"
 msgstr "Masquer le thème par défaut"
 
-#: .././wpupopin.php:116 .././wpupopin.php:117
+#: .././wpupopin.php:136 .././wpupopin.php:137
 msgid "Button text"
 msgstr "Texte du bouton"
 
-#: .././wpupopin.php:123 .././wpupopin.php:124
+#: .././wpupopin.php:143 .././wpupopin.php:144
 msgid "Hide Main button"
 msgstr "Cacher le bouton principal"
 
-#: .././wpupopin.php:129 .././wpupopin.php:130
+#: .././wpupopin.php:149 .././wpupopin.php:150
 msgid "Hide X button"
 msgstr "Cacher le bouton X"
 
-#: .././wpupopin.php:142
+#: .././wpupopin.php:164
 msgid "Hide"
 msgstr "Masquer"
+
+#~ msgid "Import Settings"
+#~ msgstr "Paramètres d'importation"

@@ -2,17 +2,26 @@
 
 /*
 Plugin Name: WPU Popin
-Description: Add a popin on your user's first visit
+Description: Display a popin on your user's first visit and more
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.5.3
+Update URI: https://github.com/WordPressUtilities/wpupopin
+Version: 0.6.0
 Author: Darklg
 Author URI: http://darklg.me/
+Text Domain: wpupopin
+Domain Path: /lang
+Requires at least: 5.9
+Requires PHP: 8.0
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 */
 
 class WPUPopin {
-    private $plugin_version = '0.5.3';
+    public $plugin_description;
+    public $settings_details;
+    public $settings;
+    public $settings_update;
+    private $plugin_version = '0.6.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -27,7 +36,11 @@ class WPUPopin {
      * Translation
      */
     public function load_translation() {
-        load_plugin_textdomain('wpupopin', false, dirname(plugin_basename(__FILE__)) . '/lang/');
+        $lang_dir = dirname(plugin_basename(__FILE__)) . '/lang/';
+        if (!load_plugin_textdomain('wpupopin', false, $lang_dir)) {
+            load_muplugin_textdomain('wpupopin', $lang_dir);
+        }
+        $this->plugin_description = __('Display a popin on your user’s first visit and more', 'wpupopin');
     }
 
     /**
@@ -36,6 +49,7 @@ class WPUPopin {
     public function load_settings() {
         $this->settings_details = array(
             'create_page' => true,
+            'plugin_basename' => plugin_basename(__FILE__),
             'parent_page' => 'tools.php',
             'plugin_name' => 'WPU Popin',
             'plugin_id' => 'wpupopin',
@@ -96,7 +110,13 @@ class WPUPopin {
                 'section' => 'popin',
                 'default' => '0',
                 'label' => __('Display after n clicks', 'wpupopin'),
-                'help' => __('Wait until user has clicked n times anywhere on the page to display the popin.', 'wpupopin')
+                'help' => __('Wait until the user has clicked n times anywhere on the page to display the popin.', 'wpupopin')
+            ),
+            'display_after_n_seconds' => array(
+                'section' => 'popin',
+                'default' => '0',
+                'label' => __('Display after n seconds', 'wpupopin'),
+                'help' => __('Wait until the user has been at least n seconds on your website.', 'wpupopin')
             ),
             'hide_default_theme' => array(
                 'section' => 'content',
@@ -135,7 +155,7 @@ class WPUPopin {
         include dirname(__FILE__) . '/inc/WPUBaseSettings/WPUBaseSettings.php';
         include dirname(__FILE__) . '/inc/WPUBaseUpdate/WPUBaseUpdate.php';
 
-        $this->settings_update = new \wpupopin\WPUBaseUpdate('WordPressUtilities','wpupopin',$this->plugin_version);
+        $this->settings_update = new \wpupopin\WPUBaseUpdate('WordPressUtilities', 'wpupopin', $this->plugin_version);
         $this->settings_plugin = new \wpupopin\WPUBaseSettings($this->settings_details, $this->settings);
         $this->settings_values = apply_filters('wpupopin__settings', $this->settings_plugin->get_setting_values());
 
@@ -148,6 +168,9 @@ class WPUPopin {
         }
         if (!isset($this->settings_values['display_after_n_clicks']) || !$this->settings_values['display_after_n_clicks'] || !ctype_digit($this->settings_values['display_after_n_clicks'])) {
             $this->settings_values['display_after_n_clicks'] = 0;
+        }
+        if (!isset($this->settings_values['display_after_n_seconds']) || !$this->settings_values['display_after_n_seconds'] || !ctype_digit($this->settings_values['display_after_n_seconds'])) {
+            $this->settings_values['display_after_n_seconds'] = 0;
         }
     }
 
@@ -173,6 +196,7 @@ class WPUPopin {
         /* Add settings */
         wp_localize_script('wpupopin-front', 'wpupopin_settings', array(
             'display_after_n_clicks' => $this->settings_values['display_after_n_clicks'],
+            'display_after_n_seconds' => $this->settings_values['display_after_n_seconds'],
             'cookie_duration' => $this->settings_values['cookie_duration'],
             'close_overlay' => $this->settings_values['close_overlay'],
             'close_echap' => $this->settings_values['close_echap'],
