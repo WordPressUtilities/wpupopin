@@ -5,7 +5,7 @@ Plugin Name: WPU Popin
 Description: Display a popin on your user's first visit and more
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
 Update URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.6.0
+Version: 0.7.0
 Author: Darklg
 Author URI: http://darklg.me/
 Text Domain: wpupopin
@@ -21,7 +21,7 @@ class WPUPopin {
     public $settings_details;
     public $settings;
     public $settings_update;
-    private $plugin_version = '0.6.0';
+    private $plugin_version = '0.7.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -50,7 +50,6 @@ class WPUPopin {
         $this->settings_details = array(
             'create_page' => true,
             'plugin_basename' => plugin_basename(__FILE__),
-            'parent_page' => 'tools.php',
             'plugin_name' => 'WPU Popin',
             'plugin_id' => 'wpupopin',
             'user_cap' => 'edit_others_pages',
@@ -58,6 +57,12 @@ class WPUPopin {
             'sections' => array(
                 'popin' => array(
                     'name' => __('Popin settings', 'wpupopin')
+                ),
+                'behavior' => array(
+                    'name' => __('Behavior', 'wpupopin')
+                ),
+                'conditions' => array(
+                    'name' => __('Conditions', 'wpupopin')
                 ),
                 'content' => array(
                     'name' => __('Popin content', 'wpupopin')
@@ -70,29 +75,10 @@ class WPUPopin {
         $this->settings = array(
             'display_popin' => array(
                 'section' => 'popin',
-                'label' => __('Popin', 'wpupopin'),
+                'label' => __('Display popin', 'wpupopin'),
                 'label_check' => __('Display a popin on first visit', 'wpupopin'),
-                'type' => 'checkbox'
-            ),
-            'disable_loggedin' => array(
-                'section' => 'popin',
-                'label' => __('Disable if loggedin', 'wpupopin'),
-                'label_check' => __('Loggedin users will not see the popin.', 'wpupopin'),
-                'type' => 'checkbox'
-            ),
-            'close_overlay' => array(
-                'section' => 'popin',
-                'default' => '1',
-                'label' => __('Close on overlay', 'wpupopin'),
-                'label_check' => __('Close popin when clicking on overlay', 'wpupopin'),
-                'type' => 'checkbox'
-            ),
-            'close_echap' => array(
-                'section' => 'popin',
-                'default' => '1',
-                'label' => __('Close on echap', 'wpupopin'),
-                'label_check' => __('Close popin when pressing echap key', 'wpupopin'),
-                'type' => 'checkbox'
+                'type' => 'checkbox',
+                'help' => __('If this setting is disabled, the popin will never appear.', 'wpupopin')
             ),
             'cookie_id' => array(
                 'section' => 'popin',
@@ -106,22 +92,48 @@ class WPUPopin {
                 'label' => __('Cookie duration', 'wpupopin'),
                 'help' => __('Number of days until user sees this popin again.', 'wpupopin')
             ),
+            'close_overlay' => array(
+                'section' => 'behavior',
+                'default' => '1',
+                'label' => __('Close on overlay', 'wpupopin'),
+                'label_check' => __('Close popin when clicking on overlay', 'wpupopin'),
+                'type' => 'checkbox'
+            ),
+            'close_echap' => array(
+                'section' => 'behavior',
+                'default' => '1',
+                'label' => __('Close on echap', 'wpupopin'),
+                'label_check' => __('Close popin when pressing echap key', 'wpupopin'),
+                'type' => 'checkbox'
+            ),
+            'disable_loggedin' => array(
+                'section' => 'conditions',
+                'label' => __('Disable if loggedin', 'wpupopin'),
+                'label_check' => __('Loggedin users will not see the popin.', 'wpupopin'),
+                'type' => 'checkbox'
+            ),
             'display_after_n_clicks' => array(
-                'section' => 'popin',
+                'section' => 'conditions',
                 'default' => '0',
                 'label' => __('Display after n clicks', 'wpupopin'),
                 'help' => __('Wait until the user has clicked n times anywhere on the page to display the popin.', 'wpupopin')
             ),
             'display_after_n_seconds' => array(
-                'section' => 'popin',
+                'section' => 'conditions',
                 'default' => '0',
                 'label' => __('Display after n seconds', 'wpupopin'),
                 'help' => __('Wait until the user has been at least n seconds on your website.', 'wpupopin')
             ),
+            'display_after_n_pixels' => array(
+                'section' => 'conditions',
+                'default' => '0',
+                'label' => __('Display after n pixels', 'wpupopin'),
+                'help' => __('Wait until the user has scrolled at least n pixels on a page of your website.', 'wpupopin')
+            ),
             'hide_default_theme' => array(
                 'section' => 'content',
                 'label' => __('Hide theme', 'wpupopin'),
-                'label_check' => __('Hide default theme', 'wpupopin'),
+                'label_check' => __('Disable default CSS', 'wpupopin'),
                 'type' => 'checkbox'
             ),
             'content_text' => array(
@@ -131,12 +143,11 @@ class WPUPopin {
                 'type' => 'editor',
                 'lang' => 1
             ),
-            'button_text' => array(
-                'section' => 'content',
-                'label' => __('Button text', 'wpupopin'),
-                'default' => __('Button text', 'wpupopin'),
-                'type' => 'text',
-                'lang' => 1
+            'close_button_hidden' => array(
+                'section' => 'button',
+                'label' => __('Hide X button', 'wpupopin'),
+                'label_check' => __('Hide X button', 'wpupopin'),
+                'type' => 'checkbox'
             ),
             'button_hidden' => array(
                 'section' => 'button',
@@ -144,11 +155,12 @@ class WPUPopin {
                 'label_check' => __('Hide Main button', 'wpupopin'),
                 'type' => 'checkbox'
             ),
-            'close_button_hidden' => array(
+            'button_text' => array(
                 'section' => 'button',
-                'label' => __('Hide X button', 'wpupopin'),
-                'label_check' => __('Hide X button', 'wpupopin'),
-                'type' => 'checkbox'
+                'label' => __('Main button text', 'wpupopin'),
+                'default' => __('Main button text', 'wpupopin'),
+                'type' => 'text',
+                'lang' => 1
             )
         );
 
@@ -171,6 +183,9 @@ class WPUPopin {
         }
         if (!isset($this->settings_values['display_after_n_seconds']) || !$this->settings_values['display_after_n_seconds'] || !ctype_digit($this->settings_values['display_after_n_seconds'])) {
             $this->settings_values['display_after_n_seconds'] = 0;
+        }
+        if (!isset($this->settings_values['display_after_n_pixels']) || !$this->settings_values['display_after_n_pixels'] || !ctype_digit($this->settings_values['display_after_n_pixels'])) {
+            $this->settings_values['display_after_n_pixels'] = 0;
         }
     }
 
@@ -197,6 +212,7 @@ class WPUPopin {
         wp_localize_script('wpupopin-front', 'wpupopin_settings', array(
             'display_after_n_clicks' => $this->settings_values['display_after_n_clicks'],
             'display_after_n_seconds' => $this->settings_values['display_after_n_seconds'],
+            'display_after_n_pixels' => $this->settings_values['display_after_n_pixels'],
             'cookie_duration' => $this->settings_values['cookie_duration'],
             'close_overlay' => $this->settings_values['close_overlay'],
             'close_echap' => $this->settings_values['close_echap'],

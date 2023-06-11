@@ -98,12 +98,24 @@ function set_wpupopin($popin) {
     if (!window.localStorage.getItem('wpupopin_nbSecsCount')) {
         window.localStorage.setItem('wpupopin_nbSecsCount', 0);
     }
-    setInterval(function(){
+    setInterval(function() {
         var nbSecsCount = window.localStorage.getItem('wpupopin_nbSecsCount');
         nbSecsCount = parseInt(nbSecsCount, 10) + 1;
         window.localStorage.setItem('wpupopin_nbSecsCount', nbSecsCount);
         try_trigger_popin();
     }, 1000);
+
+    /* Wait scroll */
+    var nbPixCount = 0,
+        nbPixWait = parseInt(wpupopin_settings.display_after_n_pixels, 10);
+    var _timeout_scroll;
+    window.addEventListener('scroll', function() {
+        clearTimeout(_timeout_scroll);
+        _timeout_scroll = setTimeout(function() {
+            nbPixCount = Math.max(nbPixCount, window.pageYOffset);
+            try_trigger_popin();
+        }, 100);
+    });
 
     /* ACTION */
     function try_trigger_popin() {
@@ -114,6 +126,11 @@ function set_wpupopin($popin) {
 
         /* Check number of seconds */
         if (parseInt(window.localStorage.getItem('wpupopin_nbSecsCount'), 10) < nbSecsWait) {
+            return;
+        }
+
+        /* Check number of pixels */
+        if (nbPixCount < nbPixWait) {
             return;
         }
 
