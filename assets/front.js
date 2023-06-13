@@ -81,6 +81,13 @@ function set_wpupopin($popin) {
       Checks
     ---------------------------------------------------------- */
 
+    /* Count the number of pages viewed */
+    var nbPagesWait = parseInt(wpupopin_settings.display_after_n_pages, 10);
+    if (!sessionStorage.wpupopin_nbPagesViewed) {
+        sessionStorage.wpupopin_nbPagesViewed = 0;
+    }
+    sessionStorage.wpupopin_nbPagesViewed = parseInt(sessionStorage.wpupopin_nbPagesViewed, 10) + 1;
+
     /* Wait for click */
     var nbClicksWait = parseInt(wpupopin_settings.display_after_n_clicks, 10);
     if (!window.localStorage.getItem('wpupopin_nbClicksCount')) {
@@ -119,6 +126,12 @@ function set_wpupopin($popin) {
 
     /* ACTION */
     function try_trigger_popin() {
+
+        /* Check number of pages viewed */
+        if (parseInt(sessionStorage.wpupopin_nbPagesViewed, 10) < nbPagesWait) {
+            return;
+        }
+
         /* Check number of clicks */
         if (parseInt(window.localStorage.getItem('wpupopin_nbClicksCount'), 10) < nbClicksWait) {
             return;

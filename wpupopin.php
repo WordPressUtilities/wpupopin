@@ -5,7 +5,7 @@ Plugin Name: WPU Popin
 Description: Display a popin on your user's first visit and more
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
 Update URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.7.0
+Version: 0.8.0
 Author: Darklg
 Author URI: http://darklg.me/
 Text Domain: wpupopin
@@ -21,9 +21,16 @@ class WPUPopin {
     public $settings_details;
     public $settings;
     public $settings_update;
-    private $plugin_version = '0.7.0';
+    private $plugin_version = '0.8.0';
     private $settings_values = array();
     private $settings_plugin = array();
+
+    private $check_values = array(
+        'display_after_n_pages',
+        'display_after_n_clicks',
+        'display_after_n_seconds',
+        'display_after_n_pixels'
+    );
 
     public function __construct() {
         add_action('plugins_loaded', array(&$this, 'load_translation'));
@@ -130,6 +137,12 @@ class WPUPopin {
                 'label' => __('Display after n pixels', 'wpupopin'),
                 'help' => __('Wait until the user has scrolled at least n pixels on a page of your website.', 'wpupopin')
             ),
+            'display_after_n_pages' => array(
+                'section' => 'conditions',
+                'default' => '0',
+                'label' => __('Display after n viewed pages', 'wpupopin'),
+                'help' => __('Wait until the user has viewed at least n pages of your website in the current session.', 'wpupopin')
+            ),
             'hide_default_theme' => array(
                 'section' => 'content',
                 'label' => __('Hide theme', 'wpupopin'),
@@ -178,14 +191,12 @@ class WPUPopin {
         if (!isset($this->settings_values['cookie_duration']) || !$this->settings_values['cookie_duration'] || !ctype_digit($this->settings_values['cookie_duration'])) {
             $this->settings_values['cookie_duration'] = 30;
         }
-        if (!isset($this->settings_values['display_after_n_clicks']) || !$this->settings_values['display_after_n_clicks'] || !ctype_digit($this->settings_values['display_after_n_clicks'])) {
-            $this->settings_values['display_after_n_clicks'] = 0;
-        }
-        if (!isset($this->settings_values['display_after_n_seconds']) || !$this->settings_values['display_after_n_seconds'] || !ctype_digit($this->settings_values['display_after_n_seconds'])) {
-            $this->settings_values['display_after_n_seconds'] = 0;
-        }
-        if (!isset($this->settings_values['display_after_n_pixels']) || !$this->settings_values['display_after_n_pixels'] || !ctype_digit($this->settings_values['display_after_n_pixels'])) {
-            $this->settings_values['display_after_n_pixels'] = 0;
+
+        /* Default numeric values */
+        foreach ($this->check_values as $val) {
+            if (!isset($this->settings_values[$val]) || !$this->settings_values[$val] || !ctype_digit($this->settings_values[$val])) {
+                $this->settings_values[$val] = 0;
+            }
         }
     }
 
@@ -208,16 +219,19 @@ class WPUPopin {
             'jquery'
         ), $this->plugin_version, true);
 
-        /* Add settings */
-        wp_localize_script('wpupopin-front', 'wpupopin_settings', array(
-            'display_after_n_clicks' => $this->settings_values['display_after_n_clicks'],
-            'display_after_n_seconds' => $this->settings_values['display_after_n_seconds'],
-            'display_after_n_pixels' => $this->settings_values['display_after_n_pixels'],
+        $values = array(
             'cookie_duration' => $this->settings_values['cookie_duration'],
             'close_overlay' => $this->settings_values['close_overlay'],
             'close_echap' => $this->settings_values['close_echap'],
             'cookie_id' => $this->settings_details['plugin_id'] . $this->settings_values['cookie_id']
-        ));
+        );
+
+        foreach ($this->check_values as $val) {
+            $values[$val] = $this->settings_values[$val];
+        }
+
+        /* Add settings */
+        wp_localize_script('wpupopin-front', 'wpupopin_settings', $values);
 
     }
 
