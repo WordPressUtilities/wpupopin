@@ -66,6 +66,10 @@ function set_wpupopin($popin) {
 
     /* Close on close link or button */
     $popin.on('click', '.wpupopin__close, .wpupopin__button, .close', function(e) {
+        var _href = jQuery(this).getAttribute('href');
+        if (_href && _href != '#') {
+            return;
+        }
         e.preventDefault();
         hide_popin();
     });
