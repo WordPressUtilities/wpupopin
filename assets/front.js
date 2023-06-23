@@ -66,7 +66,7 @@ function set_wpupopin($popin) {
 
     /* Close on close link or button */
     $popin.on('click', '.wpupopin__close, .wpupopin__button, .close', function(e) {
-        var _href = jQuery(this).getAttribute('href');
+        var _href = jQuery(this).attr('href');
         if (_href && _href != '#') {
             return;
         }
@@ -87,10 +87,10 @@ function set_wpupopin($popin) {
 
     /* Count the number of pages viewed */
     var nbPagesWait = parseInt(wpupopin_settings.display_after_n_pages, 10);
-    if (!sessionStorage.wpupopin_nbPagesViewed) {
-        sessionStorage.wpupopin_nbPagesViewed = 0;
+    if (!window.sessionStorage.wpupopin_nbPagesViewed) {
+        window.sessionStorage.wpupopin_nbPagesViewed = 0;
     }
-    sessionStorage.wpupopin_nbPagesViewed = parseInt(sessionStorage.wpupopin_nbPagesViewed, 10) + 1;
+    window.sessionStorage.wpupopin_nbPagesViewed = parseInt(window.sessionStorage.wpupopin_nbPagesViewed, 10) + 1;
 
     /* Wait for click */
     var nbClicksWait = parseInt(wpupopin_settings.display_after_n_clicks, 10);
@@ -118,12 +118,18 @@ function set_wpupopin($popin) {
 
     /* Wait scroll */
     var nbPixCount = 0,
+        nbPixActual = 0,
+        scrollDir = 'down',
         nbPixWait = parseInt(wpupopin_settings.display_after_n_pixels, 10);
     var _timeout_scroll;
     window.addEventListener('scroll', function() {
         clearTimeout(_timeout_scroll);
         _timeout_scroll = setTimeout(function() {
-            nbPixCount = Math.max(nbPixCount, window.pageYOffset);
+            /* Direction */
+            scrollDir = nbPixActual > window.pageYOffset ? 'up' : 'down';
+            nbPixActual = window.pageYOffset;
+            /* Count */
+            nbPixCount = Math.max(nbPixCount, nbPixActual);
             try_trigger_popin();
         }, 100);
     });
@@ -132,7 +138,7 @@ function set_wpupopin($popin) {
     function try_trigger_popin() {
 
         /* Check number of pages viewed */
-        if (parseInt(sessionStorage.wpupopin_nbPagesViewed, 10) < nbPagesWait) {
+        if (parseInt(window.sessionStorage.wpupopin_nbPagesViewed, 10) < nbPagesWait) {
             return;
         }
 
@@ -148,6 +154,11 @@ function set_wpupopin($popin) {
 
         /* Check number of pixels */
         if (nbPixCount < nbPixWait) {
+            return;
+        }
+
+        /* Check scroll direction */
+        if (wpupopin_settings.display_on_scroll_top == '1' && scrollDir != 'up') {
             return;
         }
 

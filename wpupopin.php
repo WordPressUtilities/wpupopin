@@ -5,15 +5,15 @@ Plugin Name: WPU Popin
 Description: Display a popin on your user's first visit and more
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
 Update URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.8.1
+Version: 0.9.0
 Author: Darklg
-Author URI: http://darklg.me/
+Author URI: https://darklg.me/
 Text Domain: wpupopin
 Domain Path: /lang
 Requires at least: 5.9
 Requires PHP: 8.0
 License: MIT License
-License URI: http://opensource.org/licenses/MIT
+License URI: https://opensource.org/licenses/MIT
 */
 
 class WPUPopin {
@@ -21,7 +21,7 @@ class WPUPopin {
     public $settings_details;
     public $settings;
     public $settings_update;
-    private $plugin_version = '0.8.1';
+    private $plugin_version = '0.9.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -29,7 +29,8 @@ class WPUPopin {
         'display_after_n_pages',
         'display_after_n_clicks',
         'display_after_n_seconds',
-        'display_after_n_pixels'
+        'display_after_n_pixels',
+        'display_on_scroll_top'
     );
 
     public function __construct() {
@@ -136,6 +137,12 @@ class WPUPopin {
                 'default' => '0',
                 'label' => __('Display after n pixels', 'wpupopin'),
                 'help' => __('Wait until the user has scrolled at least n pixels on a page of your website.', 'wpupopin')
+            ),
+            'display_on_scroll_top' => array(
+                'section' => 'conditions',
+                'type' => 'checkbox',
+                'label' => __('Display when scrolling to top', 'wpupopin'),
+                'label_check' => __('Wait until the user has scrolled up on a page of your website.', 'wpupopin')
             ),
             'display_after_n_pages' => array(
                 'section' => 'conditions',
