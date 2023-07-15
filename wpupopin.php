@@ -5,7 +5,7 @@ Plugin Name: WPU Popin
 Description: Display a popin on your user's first visit and more
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
 Update URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.9.0
+Version: 0.10.0
 Author: Darklg
 Author URI: https://darklg.me/
 Text Domain: wpupopin
@@ -21,7 +21,7 @@ class WPUPopin {
     public $settings_details;
     public $settings;
     public $settings_update;
-    private $plugin_version = '0.9.0';
+    private $plugin_version = '0.10.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -113,6 +113,17 @@ class WPUPopin {
                 'label' => __('Close on echap', 'wpupopin'),
                 'label_check' => __('Close popin when pressing echap key', 'wpupopin'),
                 'type' => 'checkbox'
+            ),
+            'mark_viewed_when' => array(
+                'section' => 'behavior',
+                'default' => '1',
+                'label' => __('Mark as viewed', 'wpupopin'),
+                'type' => 'select',
+                'default' => 'display',
+                'datas' => array(
+                    'display' => __('When displaying', 'wpupopin'),
+                    'closing' => __('When closing', 'wpupopin')
+                )
             ),
             'disable_loggedin' => array(
                 'section' => 'conditions',
@@ -231,6 +242,7 @@ class WPUPopin {
         ), $this->plugin_version, true);
 
         $values = array(
+            'mark_viewed_when' => $this->settings_values['mark_viewed_when'],
             'cookie_duration' => $this->settings_values['cookie_duration'],
             'close_overlay' => $this->settings_values['close_overlay'],
             'close_echap' => $this->settings_values['close_echap'],

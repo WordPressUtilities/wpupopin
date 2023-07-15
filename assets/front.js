@@ -12,6 +12,14 @@ function set_wpupopin($popin) {
     function hide_popin() {
         $popin.attr('data-visible', '0');
         $popin.trigger('wpupopin_hide');
+        /* Mark as viewed */
+        if (wpupopin_settings.mark_viewed_when == 'closing') {
+            mark_as_viewed();
+        }
+    }
+
+    function mark_as_viewed() {
+        setCookie(wpupopin_settings.cookie_id, 1, wpupopin_settings.cookie_duration);
     }
 
     function display_popin() {
@@ -23,8 +31,10 @@ function set_wpupopin($popin) {
         /* Display popin */
         $popin.attr('data-visible', '1');
 
-        /* Create a cookie */
-        setCookie(wpupopin_settings.cookie_id, 1, wpupopin_settings.cookie_duration);
+        /* Mark as viewed */
+        if (wpupopin_settings.mark_viewed_when == 'display') {
+            mark_as_viewed();
+        }
     }
 
     function setCookie(cookie_name, cookie_value, cookie_days) {
@@ -110,7 +120,14 @@ function set_wpupopin($popin) {
         window.localStorage.setItem('wpupopin_nbSecsCount', 0);
     }
     setInterval(function() {
+        /* Do not track visit duration if tab is not visible */
+        if (document.visibilityState == 'hidden') {
+            return;
+        }
         var nbSecsCount = window.localStorage.getItem('wpupopin_nbSecsCount');
+        if (isNaN(nbSecsCount)) {
+            nbSecsCount = 0;
+        }
         nbSecsCount = parseInt(nbSecsCount, 10) + 1;
         window.localStorage.setItem('wpupopin_nbSecsCount', nbSecsCount);
         try_trigger_popin();
