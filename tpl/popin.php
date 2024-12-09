@@ -1,4 +1,5 @@
 <?php
+defined('ABSPATH') || die;
 
 $close_overlay_attr = $this->settings_values['close_overlay'] ? ' rel="button" title="' . __('Close popin', 'wpupopin') . '"' : '';
 $button_url = isset($this->settings_values['button_url']) && $this->settings_values['button_url'] ? esc_url($this->settings_values['button_url']) : '#';

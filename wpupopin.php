@@ -1,27 +1,30 @@
 <?php
+defined('ABSPATH') || die;
 
 /*
 Plugin Name: WPU Popin
 Description: Display a popin on your user's first visit and more
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
 Update URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.10.0
+Version: 0.11.0
 Author: Darklg
 Author URI: https://darklg.me/
 Text Domain: wpupopin
 Domain Path: /lang
-Requires at least: 5.9
+Requires at least: 6.2
 Requires PHP: 8.0
+Network: Optional
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 */
 
 class WPUPopin {
+    public $basefields;
     public $plugin_description;
     public $settings_details;
     public $settings;
     public $settings_update;
-    private $plugin_version = '0.10.0';
+    private $plugin_version = '0.11.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -34,8 +37,8 @@ class WPUPopin {
     );
 
     public function __construct() {
-        add_action('plugins_loaded', array(&$this, 'load_translation'));
-        add_action('plugins_loaded', array(&$this, 'load_settings'));
+        add_action('init', array(&$this, 'load_translation'));
+        add_action('init', array(&$this, 'load_settings'));
         add_action('wp_enqueue_scripts', array(&$this, 'load_assets_front'));
         add_action('wp_footer', array(&$this, 'load_popin_front'));
     }
@@ -45,8 +48,10 @@ class WPUPopin {
      */
     public function load_translation() {
         $lang_dir = dirname(plugin_basename(__FILE__)) . '/lang/';
-        if (!load_plugin_textdomain('wpupopin', false, $lang_dir)) {
+        if (strpos(__DIR__, 'mu-plugins') !== false) {
             load_muplugin_textdomain('wpupopin', $lang_dir);
+        } else {
+            load_plugin_textdomain('wpupopin', false, $lang_dir);
         }
         $this->plugin_description = __('Display a popin on your user’s first visit and more', 'wpupopin');
     }
@@ -199,8 +204,8 @@ class WPUPopin {
             )
         );
 
-        include dirname(__FILE__) . '/inc/WPUBaseSettings/WPUBaseSettings.php';
-        include dirname(__FILE__) . '/inc/WPUBaseUpdate/WPUBaseUpdate.php';
+        require_once __DIR__ . '/inc/WPUBaseSettings/WPUBaseSettings.php';
+        require_once __DIR__ . '/inc/WPUBaseUpdate/WPUBaseUpdate.php';
 
         $this->settings_update = new \wpupopin\WPUBaseUpdate('WordPressUtilities', 'wpupopin', $this->plugin_version);
         $this->settings_plugin = new \wpupopin\WPUBaseSettings($this->settings_details, $this->settings);
@@ -220,6 +225,21 @@ class WPUPopin {
                 $this->settings_values[$val] = 0;
             }
         }
+
+        require_once __DIR__ . '/inc/WPUBaseFields/WPUBaseFields.php';
+        $fields = array(
+            'wpupopin_disable_popin' => array(
+                'type' => 'checkbox',
+                'group' => 'wpupopin_group',
+                'label' => __('Hide Popin on this page', 'wpupopin'),
+            )
+        );
+        $field_groups = array(
+            'wpupopin_group' => array(
+                'label' => 'WPU Popin'
+            )
+        );
+        $this->basefields = new \wpupopin\WPUBaseFields($fields, $field_groups);
     }
 
     /**
@@ -279,7 +299,7 @@ class WPUPopin {
         add_filter('wpupopin_the_content', 'shortcode_unautop');
         add_filter('wpupopin_the_content', 'do_shortcode');
 
-        include dirname(__FILE__) . '/tpl/popin.php';
+        require_once __DIR__ . '/tpl/popin.php';
     }
 
     public function should_display_popin() {
@@ -289,6 +309,12 @@ class WPUPopin {
         }
         if ($this->settings_values['disable_loggedin'] && is_user_logged_in()) {
             return false;
+        }
+        if (is_singular()) {
+            $disable_popin = get_post_meta(get_the_ID(), 'wpupopin_disable_popin', true);
+            if ($disable_popin) {
+                return false;
+            }
         }
         return apply_filters('wpupopin__should_display_popin', true);
     }

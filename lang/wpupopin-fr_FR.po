@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPU Popin\n"
-"POT-Creation-Date: 2023-07-15 10:55-0400\n"
+"POT-Creation-Date: 2024-12-09 23:00+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Darklg <darklg.blog@gmail.com>\n"
 "Language-Team: \n"
@@ -9,87 +9,123 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:136
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:558
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:565
+#: .././inc/WPUBaseFields/WPUBaseFields.php:134
+msgid "Select a value"
+msgstr "Sélectionner une valeur"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:206
+msgid "Required"
+msgstr "Requis"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:270
+msgid "Select a file"
+msgstr "Sélectionner un fichier"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:271
+msgid "Remove file"
+msgstr "Supprimer le fichier"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:273
+msgid "Select an image"
+msgstr "Sélectionner une image"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:274
+msgid "Remove image"
+msgstr "Supprimer l’image"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:313
+msgid "This field is invalid"
+msgstr "Ce champ est invalide"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:132
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:674
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:681
 msgid "Settings"
 msgstr "Réglages"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:165
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:162
 msgid "No"
 msgstr "Non"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:165
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:162
 msgid "Yes"
 msgstr "Oui"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:301
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:208
+msgid "Check all"
+msgstr "Tout cocher"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:209
+msgid "Uncheck all"
+msgstr "Tout décocher"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:323
 msgid "Settings saved."
 msgstr "Réglages enregistrés."
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:353
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:383
 msgid "Upload New Media"
 msgstr "Ajouter un nouveau média"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:504
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:578
 msgid "Language"
 msgstr "Langue"
 
-#: .././inc/WPUBaseSettings/WPUBaseSettings.php:580
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:696
 msgid "Save"
 msgstr "Enregistrer"
 
-#: .././tpl/popin.php:3 .././tpl/popin.php:16
+#: .././tpl/popin.php:4 .././tpl/popin.php:17
 msgid "Close popin"
 msgstr "Fermer le popin"
 
-#: .././wpupopin.php:51
+#: .././wpupopin.php:53
 msgid "Display a popin on your user’s first visit and more"
 msgstr "Afficher un popin à la première visite et bien plus encore"
 
-#: .././wpupopin.php:67
+#: .././wpupopin.php:69
 msgid "Popin settings"
 msgstr "Paramètres du popin"
 
-#: .././wpupopin.php:70
+#: .././wpupopin.php:72
 msgid "Behavior"
 msgstr "Comportement"
 
-#: .././wpupopin.php:73
+#: .././wpupopin.php:75
 msgid "Conditions"
 msgstr "Conditions"
 
-#: .././wpupopin.php:76 .././wpupopin.php:172 .././wpupopin.php:173
+#: .././wpupopin.php:78 .././wpupopin.php:174 .././wpupopin.php:175
 msgid "Popin content"
 msgstr "Contenu du popin"
 
-#: .././wpupopin.php:79
+#: .././wpupopin.php:81
 msgid "Buttons"
 msgstr "Boutons"
 
-#: .././wpupopin.php:86
+#: .././wpupopin.php:88
 msgid "Display popin"
 msgstr "Afficher un popin"
 
-#: .././wpupopin.php:87
+#: .././wpupopin.php:89
 msgid "Display a popin on first visit"
 msgstr "Afficher un popin à la première visite"
 
-#: .././wpupopin.php:89
+#: .././wpupopin.php:91
 msgid "If this setting is disabled, the popin will never appear."
 msgstr "Si ce paramètre est désactivé, le popin n’apparaîtra jamais."
 
-#: .././wpupopin.php:93
+#: .././wpupopin.php:95
 msgid "ID Cookie"
 msgstr "ID du Cookie"
 
-#: .././wpupopin.php:95
+#: .././wpupopin.php:97
 msgid ""
 "Changing cookie ID allow users to see the new content of a popin.<br />Use "
 "only lowercase letters and numbers."
@@ -98,55 +134,55 @@ msgstr ""
 "contenu d'un popin.<br />Utiliser uniquement des lettres minuscules et des "
 "nombres."
 
-#: .././wpupopin.php:100
+#: .././wpupopin.php:102
 msgid "Cookie duration"
 msgstr "Durée du cookie"
 
-#: .././wpupopin.php:101
+#: .././wpupopin.php:103
 msgid "Number of days until user sees this popin again."
 msgstr "Nombre de jours jusqu’à ce que l'utilisateur voie à nouveau ce cookie."
 
-#: .././wpupopin.php:106
+#: .././wpupopin.php:108
 msgid "Close on overlay"
 msgstr "Fermeture sur filtre"
 
-#: .././wpupopin.php:107
+#: .././wpupopin.php:109
 msgid "Close popin when clicking on overlay"
 msgstr "Fermer le popin au clic sur le filtre"
 
-#: .././wpupopin.php:113
-msgid "Mark as viewed"
-msgstr "Marquer comme vu"
-
-#: .././wpupopin.php:117
-msgid "When displaying"
-msgstr "Lors de l’affichage"
-
-#: .././wpupopin.php:118
-msgid "When closing"
-msgstr "Lors de la fermeture"
-
-#: .././wpupopin.php:124
+#: .././wpupopin.php:115
 msgid "Close on echap"
 msgstr "Fermeture avec echap"
 
-#: .././wpupopin.php:125
+#: .././wpupopin.php:116
 msgid "Close popin when pressing echap key"
 msgstr "Fermer le popin au clic sur la touche echap"
 
-#: .././wpupopin.php:130
+#: .././wpupopin.php:122
+msgid "Mark as viewed"
+msgstr "Marquer comme vu"
+
+#: .././wpupopin.php:126
+msgid "When displaying"
+msgstr "Lors de l’affichage"
+
+#: .././wpupopin.php:127
+msgid "When closing"
+msgstr "Lors de la fermeture"
+
+#: .././wpupopin.php:132
 msgid "Disable if loggedin"
 msgstr "Désactiver si connecté"
 
-#: .././wpupopin.php:131
+#: .././wpupopin.php:133
 msgid "Loggedin users will not see the popin."
 msgstr "Les utilisateurs connectés ne verront pas ce popin."
 
-#: .././wpupopin.php:137
+#: .././wpupopin.php:139
 msgid "Display after n clicks"
 msgstr "Afficher après n clics"
 
-#: .././wpupopin.php:138
+#: .././wpupopin.php:140
 msgid ""
 "Wait until the user has clicked n times anywhere on the page to display the "
 "popin."
@@ -154,41 +190,41 @@ msgstr ""
 "Attendre que l'utilisateur clique n fois n'importe où sur la page pour "
 "afficher le popin."
 
-#: .././wpupopin.php:143
+#: .././wpupopin.php:145
 msgid "Display after n seconds"
 msgstr "Afficher après n secondes"
 
-#: .././wpupopin.php:144
+#: .././wpupopin.php:146
 msgid "Wait until the user has been at least n seconds on your website."
 msgstr ""
 "Attendre que l’utilisateur ait passé au moins n secondes de visite pour "
 "afficher le popin."
 
-#: .././wpupopin.php:149
+#: .././wpupopin.php:151
 msgid "Display after n pixels"
 msgstr "Afficher après n pixels"
 
-#: .././wpupopin.php:150
+#: .././wpupopin.php:152
 msgid ""
 "Wait until the user has scrolled at least n pixels on a page of your website."
 msgstr ""
 "Attendre que l’utilisateur ait scrollé au moins n pixels sur une page pour "
 "afficher le popin."
 
-#: .././wpupopin.php:155
+#: .././wpupopin.php:157
 msgid "Display when scrolling to top"
 msgstr "Afficher au scroll vers le haut"
 
-#: .././wpupopin.php:156
+#: .././wpupopin.php:158
 msgid "Wait until the user has scrolled up on a page of your website."
 msgstr ""
 "Attendre que l’utilisateur ait scrollé vers le haut pour afficher le popin."
 
-#: .././wpupopin.php:161
+#: .././wpupopin.php:163
 msgid "Display after n viewed pages"
 msgstr "Afficher après n pages vues"
 
-#: .././wpupopin.php:162
+#: .././wpupopin.php:164
 msgid ""
 "Wait until the user has viewed at least n pages of your website in the "
 "current session."
@@ -196,33 +232,37 @@ msgstr ""
 "Attendre que l’utilisateur ait vu au moins n pages dans cette session pour "
 "afficher le popin."
 
-#: .././wpupopin.php:166
+#: .././wpupopin.php:168
 msgid "Hide theme"
 msgstr "Masquer le thème"
 
-#: .././wpupopin.php:167
+#: .././wpupopin.php:169
 msgid "Disable default CSS"
 msgstr "Désactiver le CSS par défaut"
 
-#: .././wpupopin.php:179 .././wpupopin.php:180
+#: .././wpupopin.php:181 .././wpupopin.php:182
 msgid "Hide X button"
 msgstr "Cacher le bouton X"
 
-#: .././wpupopin.php:185 .././wpupopin.php:186
+#: .././wpupopin.php:187 .././wpupopin.php:188
 msgid "Hide Main button"
 msgstr "Cacher le bouton principal"
 
-#: .././wpupopin.php:191 .././wpupopin.php:192
+#: .././wpupopin.php:193 .././wpupopin.php:194
 msgid "Main button text"
 msgstr "Texte du bouton principal"
 
-#: .././wpupopin.php:197
+#: .././wpupopin.php:199
 msgid "Main button URL"
 msgstr "URL du bouton principal"
 
-#: .././wpupopin.php:211
+#: .././wpupopin.php:213
 msgid "Hide"
 msgstr "Masquer"
+
+#: .././wpupopin.php:231
+msgid "Hide Popin on this page"
+msgstr "Masquer la Popin sur cette page"
 
 #~ msgid "Popin"
 #~ msgstr "Popin"

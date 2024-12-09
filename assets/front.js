@@ -1,4 +1,3 @@
-/* globals jQuery,wpupopin_settings,document,window */
 
 jQuery(document).ready(function() {
     set_wpupopin(jQuery('.wpupopin__wrapper'));
@@ -107,7 +106,7 @@ function set_wpupopin($popin) {
     if (!window.localStorage.getItem('wpupopin_nbClicksCount')) {
         window.localStorage.setItem('wpupopin_nbClicksCount', 0);
     }
-    window.addEventListener('click', function(e) {
+    window.addEventListener('click', function() {
         var nbClicksCount = window.localStorage.getItem('wpupopin_nbClicksCount');
         nbClicksCount = parseInt(nbClicksCount, 10) + 1;
         window.localStorage.setItem('wpupopin_nbClicksCount', nbClicksCount);
