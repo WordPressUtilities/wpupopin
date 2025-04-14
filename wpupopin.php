@@ -6,7 +6,7 @@ Plugin Name: WPU Popin
 Description: Display a popin on your user's first visit and more
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
 Update URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.11.0
+Version: 0.12.0
 Author: Darklg
 Author URI: https://darklg.me/
 Text Domain: wpupopin
@@ -23,8 +23,7 @@ class WPUPopin {
     public $plugin_description;
     public $settings_details;
     public $settings;
-    public $settings_update;
-    private $plugin_version = '0.11.0';
+    private $plugin_version = '0.12.0';
     private $settings_values = array();
     private $settings_plugin = array();
 
@@ -207,7 +206,10 @@ class WPUPopin {
         require_once __DIR__ . '/inc/WPUBaseSettings/WPUBaseSettings.php';
         require_once __DIR__ . '/inc/WPUBaseUpdate/WPUBaseUpdate.php';
 
-        $this->settings_update = new \wpupopin\WPUBaseUpdate('WordPressUtilities', 'wpupopin', $this->plugin_version);
+        new \wpupopin\WPUBaseUpdate('WordPressUtilities', 'wpupopin', $this->plugin_version);
+
+        $this->settings_details = apply_filters('wpupopin__settings_details', $this->settings_details);
+        $this->settings = apply_filters('wpupopin__settings_config', $this->settings);
         $this->settings_plugin = new \wpupopin\WPUBaseSettings($this->settings_details, $this->settings);
         $this->settings_values = apply_filters('wpupopin__settings', $this->settings_plugin->get_setting_values());
 
