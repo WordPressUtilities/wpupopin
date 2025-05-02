@@ -85,7 +85,7 @@ function set_wpupopin($popin) {
 
     /* Close on echap */
     window.addEventListener("keydown", function(e) {
-        if (e.keyCode == 27) {
+        if (e.key == 'Escape') {
             hide_popin();
         }
     }, true);
@@ -149,6 +149,23 @@ function set_wpupopin($popin) {
             try_trigger_popin();
         }, 100);
     });
+
+    /* Check if popin is empty */
+    function is_popin_empty() {
+        var $popinContent = $popin.find('.wpupopin__content');
+        if ($popinContent.length == 0) {
+            return false;
+        }
+        if ($popinContent.html() == '') {
+            return true;
+        }
+        return false;
+    }
+
+    if (is_popin_empty()) {
+        console.log('[WPUPopin] Popin is empty. Please check your settings.');
+        return;
+    }
 
     /* ACTION */
     function try_trigger_popin() {
