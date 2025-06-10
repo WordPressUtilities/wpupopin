@@ -27,6 +27,10 @@ function set_wpupopin($popin) {
             return;
         }
 
+        trigger_display_popin();
+    }
+
+    function trigger_display_popin() {
         /* Display popin */
         $popin.attr('data-visible', '1');
 
@@ -62,8 +66,11 @@ function set_wpupopin($popin) {
 
     /* EVENTS */
 
-    /* Custom event */
+    /* Custom event : Hide popin */
     $popin.on('hide_wpupopin', hide_popin);
+
+    /* Custom event : Show popin */
+    $popin.on('show_wpupopin', trigger_display_popin);
 
     /* Close on overlay */
     $popin.on('click', '.wpupopin__overlay', function(e) {

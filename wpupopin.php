@@ -6,7 +6,7 @@ Plugin Name: WPU Popin
 Description: Display a popin on your user's first visit and more
 Plugin URI: https://github.com/WordPressUtilities/wpupopin
 Update URI: https://github.com/WordPressUtilities/wpupopin
-Version: 0.12.1
+Version: 0.12.2
 Author: Darklg
 Author URI: https://darklg.me/
 Text Domain: wpupopin
@@ -23,7 +23,7 @@ class WPUPopin {
     public $plugin_description;
     public $settings_details;
     public $settings;
-    private $plugin_version = '0.12.1';
+    private $plugin_version = '0.12.2';
     private $settings_values = array();
     private $settings_plugin = array();
 
